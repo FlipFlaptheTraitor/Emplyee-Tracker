@@ -12,8 +12,6 @@ const connection = mysql.createConnection({
   });
 
 
-  // Creating Connection
-const connection = mysql.createConnection(connectionProperties);
 
 
 connection.connect((err) => {
@@ -77,4 +75,53 @@ function mainMenu(){
                 break;
         }
     });
+}
+
+function viewAllDepartments(){
+    inquirer.prompt({
+
+        // Prompt user for name of department
+        name: "deptName",
+        type: "input",
+        message: "Department Name: "
+    }).then((answer) => {
+            
+        // add department to the table
+        connection.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
+            if(err) return err;
+            console.log("\n DEPARTMENT ADDED...\n ");
+            mainMenu();
+        });
+
+    });
+}
+
+function viewAllRoles(){
+
+    mainMenu();
+}
+
+function viewAllEmployees(){
+
+    mainMenu();
+}
+
+function addDepartment(){
+
+    mainMenu();
+}
+
+function addRole(){
+
+    mainMenu();
+}
+
+function addEmployee(){
+
+    mainMenu();
+}
+
+function updateEmployeeRole(){
+
+    mainMenu();
 }
