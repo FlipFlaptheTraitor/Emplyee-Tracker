@@ -1,7 +1,7 @@
 # Employee Tracker
 
   ## Description 
-
+This program was designed to allow a user to view and edit a list of employees, departments, and jobs. this program uses Node in order to allow users too access an interactive menu on the command line.
   
   
   ## Table of Contents
@@ -17,15 +17,15 @@
   * [Tests](#tests)
   
   ## Installation
-  
+  This program requires node js also inquirer and consoleTable modules. these programs can be installed using the npm itit then installing the npm install command follow by npm install ____ while filling in the names of the packages which are inquirer,mysql, and console.Table.
 
   
   
   ## Usage 
   ![]()
-
+full demonstration video can be found in the file structure of the repository inside the vid folder.
   ## Credits
-  
+  credit to all the contributers that worked on the modules used in the program and also whoever helps me get the mysql2 database initilized so the program will run.
 
   
   ## License
@@ -43,11 +43,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   
   
   ## Badges
-  
-  
+  [![ForTheBadge uses-js](http://ForTheBadge.com/images/badges/uses-js.svg)](http://ForTheBadge.com)
+  <img alt="NodeJS" src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/>
+  <img alt="MySQL" src="https://img.shields.io/badge/mysql-%2300f.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>
   
   ## Features
-  
+  This program allows users to View all departments, View all roles, View all employees, Add a department, Add role, Add an employee, Update employee role
 
   
   
