@@ -1,13 +1,15 @@
 const mysql = require('mysql2');
 const inquirer = require("inquirer");
+
 const consoleTable = require("console.table");
-const db = require('./db/database');
-const promisemysql = require("promise-mysql");
+const db = require('./db/employees.db');
+//const promisemysql = require("promise-mysql");
 
 // create the connection to database
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
+    password: "root",
     database: 'employees.db'
   });
 
@@ -17,16 +19,13 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
 
-    // Start main menu function
-
-    console.log("\n WELCOME TO EMPLOYEE TRACKER \n");
     mainMenu();
 });
 
-
+//main menu is prompt to allow users to select the different functions
 function mainMenu(){
 
-    // Prompt user to choose an option
+    
     inquirer
     .prompt({
       name: "action",
@@ -46,9 +45,9 @@ function mainMenu(){
 
     .then((answer) => {
 
-        // Switch case depending on user option
+        
         switch (answer.action) {
-            case "View all employees":
+            case "View all departments":
                 viewAllDepartments();
                 break;
 
@@ -80,13 +79,13 @@ function mainMenu(){
 function viewAllDepartments(){
     inquirer.prompt({
 
-        // Prompt user for name of department
+        
         name: "deptName",
         type: "input",
         message: "Department Name: "
     }).then((answer) => {
             
-        // add department to the table
+        
         connection.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
             if(err) return err;
             console.log("\n DEPARTMENT ADDED...\n ");
@@ -97,31 +96,136 @@ function viewAllDepartments(){
 }
 
 function viewAllRoles(){
-
+ 
+  let query = "SELECT * FROM role";
+  connection.query(query, function(err, res) {
+    if (err) throw err;
+    console.table(res);
     mainMenu();
+  });
 }
 
 function viewAllEmployees(){
-
-    mainMenu();
-}
+    let query = "SELECT * FROM employee";
+    connection.query(query, function(err, res) {
+      if (err) throw err;
+      console.table(res);
+      mainMenu();
+    });
+  }
 
 function addDepartment(){
+    inquirer.prompt({
+      
+        type: "input",
+        message: "Add a department",
+        name: "Department Name: "
 
-    mainMenu();
+    }).then(function(answer){
+
+
+
+        connection.query("INSERT INTO department (name) VALUES (?)", [answer.deptName] , function(err, res) {
+            if (err) throw err;
+            console.table(res)
+            mainMenu();
+    })
+    })
 }
 
 function addRole(){
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Please enter a role",
+        name: "roleName"
+      },
+      {
+        type: "input",
+        message: "Please enter an amount for a salary",
+        name: "salaryTotal"
+      },
+      {
+        type: "input",
+        message: "Please enter department ID",
+        name: "Department ID"
+      }
+    ])
+    .then(function(answer) {
 
-    mainMenu();
+
+      connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [answer.roleName, answer.salaryTotal, answer.deptID], function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        mainMenu();
+      });
+    });
 }
 
 function addEmployee(){
+    inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "Enter a first name for new employee",
+        name: "FirstName"
+      },
+      {
+        type: "input",
+        message: "Enter a last name for new employee",
+        name: "LastName"
+      },
+      {
+        type: "input",
+        message: "Please enter a role",
+        name: "roleID"
+      },
+      {
+        type: "input",
+        message: "Please enter a manager ID if applicable",
+        name: "managerID"
+      }
+    ])
+    .then(function(answer) {
 
-    mainMenu();
+      
+      connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.FirstName, answer.LastName, answer.roleID, answer.managerID], function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        mainMenu();
+      });
+    });
 }
 
 function updateEmployeeRole(){
+    inquirer
+    .prompt({
+      name: "id",
+      type: "input",
+      message: "Enter employee id",
+    })
+    .then(function (answer) {
+      var id = answer.id;
 
-    mainMenu();
+      inquirer
+        .prompt({
+          name: "roleId",
+          type: "input",
+          message: "Enter role id",
+        })
+        .then(function (answer) {
+          var roleId = answer.roleId;
+
+          var query = "UPDATE employee SET role_id=? WHERE id=?";
+          connection.query(query, [roleId, id], function (err, res) {
+            if (err) {
+              console.log(err);
+            }
+            mainMenu();
+          });
+        });
+    });
 }
+
+  

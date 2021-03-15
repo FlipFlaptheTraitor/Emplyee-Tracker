@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "sqlite3 db/employees.db < db/schema.sql",
+    "seed": "sqlite3 db/employees.db < db/seeds.sql",
     "start": "node server.js"
   },
   "repository": {
@@ -19,7 +21,10 @@
   "homepage": "https://github.com/FlipFlaptheTraitor/Emplyee-Tracker#readme",
   "dependencies": {
     "console.table": "^0.10.0",
+    "express": "^4.17.1",
     "inquirer": "^8.0.0",
-    "modules": "^0.4.0"
+    "modules": "^0.4.0",
+    "mysql2": "^2.2.5",
+    "sqlite3": "^5.0.2"
   }
 }
