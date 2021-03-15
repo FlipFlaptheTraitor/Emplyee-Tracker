@@ -3,18 +3,15 @@ const inquirer = require("inquirer");
 
 const consoleTable = require("console.table");
 const db = require('./db/employees.db');
-//const promisemysql = require("promise-mysql");
+
 
 // create the connection to database
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: "root",
+   // password: "root",
     database: 'employees.db'
   });
-
-
-
 
 connection.connect((err) => {
     if (err) throw err;
@@ -25,7 +22,6 @@ connection.connect((err) => {
 //main menu is prompt to allow users to select the different functions
 function mainMenu(){
 
-    
     inquirer
     .prompt({
       name: "action",
@@ -41,11 +37,8 @@ function mainMenu(){
         "Update employee role",
       ]
     })
-
-
     .then((answer) => {
 
-        
         switch (answer.action) {
             case "View all departments":
                 viewAllDepartments();
@@ -123,8 +116,6 @@ function addDepartment(){
 
     }).then(function(answer){
 
-
-
         connection.query("INSERT INTO department (name) VALUES (?)", [answer.deptName] , function(err, res) {
             if (err) throw err;
             console.table(res)
@@ -189,7 +180,6 @@ function addEmployee(){
     ])
     .then(function(answer) {
 
-      
       connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.FirstName, answer.LastName, answer.roleID, answer.managerID], function(err, res) {
         if (err) throw err;
         console.table(res);
