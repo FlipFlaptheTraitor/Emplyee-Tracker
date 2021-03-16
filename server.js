@@ -2,7 +2,7 @@ const mysql = require('mysql2');
 const inquirer = require("inquirer");
 
 const consoleTable = require("console.table");
-const db = require('./db/employees.db');
+
 
 
 // create the connection to database
@@ -10,8 +10,8 @@ const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: "",
-    database: 'employees.db'
+    password: 'root',
+    database: 'employees_db'
   });
 
 connection.connect((err) => {
@@ -71,20 +71,12 @@ function mainMenu(){
 }
 
 function viewAllDepartments(){
-    inquirer.prompt({
-
-        
-        name: "deptName",
-        type: "input",
-        message: "Department Name: "
-    }).then((answer) => {
-            
-        
-        connection.query(`INSERT INTO department (name)VALUES ("${answer.deptName}");`, (err, res) => {
-            if(err) return err;
-            console.log("\n DEPARTMENT ADDED...\n ");
-            mainMenu();
-        });
+  let query = "SELECT * FROM Department";
+  connection.query(query, function(err, res) {
+    if (err) throw err;
+    console.table(res);
+    mainMenu();
+      
 
     });
 }
@@ -113,11 +105,11 @@ function addDepartment(){
       
         type: "input",
         message: "Add a department",
-        name: "Department Name: "
+        name: "DepartmentName"
 
     }).then(function(answer){
 
-        connection.query("INSERT INTO department (name) VALUES (?)", [answer.deptName] , function(err, res) {
+        connection.query("INSERT INTO department (name) VALUES (?)", [answer.DepartmentName] , function(err, res) {
             if (err) throw err;
             console.table(res)
             mainMenu();
@@ -141,13 +133,13 @@ function addRole(){
       {
         type: "input",
         message: "Please enter department ID",
-        name: "Department ID"
+        name: "DepartmentID"
       }
     ])
     .then(function(answer) {
 
 
-      connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [answer.roleName, answer.salaryTotal, answer.deptID], function(err, res) {
+      connection.query("INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)", [answer.roleName, answer.salaryTotal, answer.DepartmentID], function(err, res) {
         if (err) throw err;
         console.table(res);
         mainMenu();
@@ -170,7 +162,7 @@ function addEmployee(){
       },
       {
         type: "input",
-        message: "Please enter a role",
+        message: "Please enter a role ID",
         name: "roleID"
       },
       {
@@ -192,24 +184,24 @@ function addEmployee(){
 function updateEmployeeRole(){
     inquirer
     .prompt({
-      name: "id",
       type: "input",
       message: "Enter employee id",
+      name: "id",
     })
     .then(function (answer) {
-      var id = answer.id;
+      var id = answer.Id;
 
       inquirer
         .prompt({
-          name: "roleId",
           type: "input",
           message: "Enter role id",
+          name: "roleId",
         })
         .then(function (answer) {
-          var roleId = answer.roleId;
+          var role_Id = answer.role_Id;
 
           var query = "UPDATE employee SET role_id=? WHERE id=?";
-          connection.query(query, [roleId, id], function (err, res) {
+          connection.query(query, [id, role_Id], function (err, res) {
             if (err) {
               console.log(err);
             }

@@ -22,8 +22,8 @@ This program was designed to allow a user to view and edit a list of employees, 
   
   
   ## Usage 
-  ![]()
-full demonstration video can be found in the file structure of the repository inside the vid folder.
+  ![employee tracker](<iframe src="https://giphy.com/embed/KoTMdYpkEDovqfqA83" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/KoTMdYpkEDovqfqA83">via GIPHY</a></p>)
+full demonstration video can be found in in the repo @ vid\employeetrackerfull.webm.
   ## Credits
   credit to all the contributers that worked on the modules used in the program and also whoever helps me get the mysql2 database initilized so the program will run.
 
