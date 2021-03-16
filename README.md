@@ -25,7 +25,7 @@ This program was designed to allow a user to view and edit a list of employees, 
   ![employee tracker](https://media.giphy.com/media/KoTMdYpkEDovqfqA83/giphy.gif)
 full demonstration video can be found in in the repo @ vid\employeetrackerfull.webm.
   ## Credits
-  credit to all the contributers that worked on the modules used in the program and also whoever helps me get the mysql2 database initilized so the program will run.
+  credit to all the contributers that worked on the modules used in the program a special thanks to windows for making mysql so much fun.
 
   
   ## License
