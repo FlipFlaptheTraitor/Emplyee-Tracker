@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: "root",
+    password: "",
     database: 'employees.db'
   });
 
@@ -27,7 +27,7 @@ function mainMenu(){
     .prompt({
       name: "action",
       type: "list",
-      message: "MAIN MENU",
+      message: "Welcome to Employee Tracker you are currently at the Main Menu",
       choices: [
         "View all departments",
         "View all roles",
